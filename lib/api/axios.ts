@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 
-// Request Interceptor — every request attach token
+// Request Interceptor - every request attach token
 api.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("rescuego_token");
@@ -19,7 +19,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response Interceptor — 401 then logout
+// Response Interceptor - 401 then logout
 api.interceptors.response.use(
   (response) => response,
   (error) => {
