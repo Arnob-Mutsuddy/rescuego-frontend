@@ -1,6 +1,7 @@
 // store/auth-store.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import Cookies from "js-cookie";
 import { User } from "@/types";
 
 interface AuthState {
@@ -20,20 +21,22 @@ export const useAuthStore = create<AuthState>()(
 
       setAuth: (user, token) => {
         set({ user, token, isAuthenticated: true });
-        if (typeof window !== "undefined") {
-          localStorage.setItem("rescuego_token", token);
-        }
+        // localStorage -> for axios interceptor
+        localStorage.setItem("rescuego_token", token);
+        // cookie -> middleware (server-side read)
+        Cookies.set("rescuego_token", token, { expires: 7, sameSite: "lax" });
+        Cookies.set("rescuego_role", user.role, { expires: 7, sameSite: "lax" });
       },
 
       logout: () => {
         set({ user: null, token: null, isAuthenticated: false });
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("rescuego_token");
-        }
+        localStorage.removeItem("rescuego_token");
+        Cookies.remove("rescuego_token");
+        Cookies.remove("rescuego_role");
       },
     }),
     {
-      name: "rescuego-auth", // localStorage key
+      name: "rescuego-auth",
       partialize: (state) => ({
         user: state.user,
         token: state.token,
