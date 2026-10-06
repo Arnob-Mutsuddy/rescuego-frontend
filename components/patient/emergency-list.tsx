@@ -17,6 +17,8 @@ import {
 import { Siren } from "lucide-react";
 import { format } from "date-fns";
 
+import { useCreateCheckout } from "@/lib/hooks/use-payment";
+
 export function EmergencyList({ status }: { status?: string }) {
   const { data, isLoading } = useEmergencyList({
     page: 1,
@@ -27,6 +29,8 @@ export function EmergencyList({ status }: { status?: string }) {
   });
 
   const cancelMutation = useCancelEmergency();
+
+  const checkoutMutation = useCreateCheckout();
 
   if (isLoading) {
     return (
@@ -75,7 +79,7 @@ export function EmergencyList({ status }: { status?: string }) {
               <TableCell className="text-sm text-muted-foreground">
                 {format(new Date(emergency.createdAt), "MMM d, yyyy h:mm a")}
               </TableCell>
-              <TableCell className="text-right">
+              {/* <TableCell className="text-right">
                 {["PENDING", "ASSIGNED"].includes(emergency.status) && (
                   <Button
                     variant="outline"
@@ -85,6 +89,27 @@ export function EmergencyList({ status }: { status?: string }) {
                   >
                     Cancel
                   </Button>
+                )}
+              </TableCell> */}
+              <TableCell className="text-right">
+                {["PENDING", "ASSIGNED"].includes(emergency.status) && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={cancelMutation.isPending}
+                      onClick={() => cancelMutation.mutate(emergency.id)}
+                    >
+                      Cancel
+                    </Button>
+                  )}
+                {emergency.status === "COMPLETED" && (
+                    <Button
+                      size="sm"
+                      disabled={checkoutMutation.isPending}
+                      onClick={() => checkoutMutation.mutate(emergency.id)}
+                    >
+                      Pay Now
+                    </Button>
                 )}
               </TableCell>
             </TableRow>
