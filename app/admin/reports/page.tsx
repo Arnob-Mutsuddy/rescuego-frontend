@@ -22,6 +22,11 @@ import {
 import { FileText, Siren } from "lucide-react";
 import { format } from "date-fns";
 
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { DispatchDialog } from "@/components/admin/dispatch-dialog";
+
+
 function AuditLogsTab() {
   const { data, isLoading } = useAuditLogs({ page: 1, limit: 30 });
 
@@ -75,8 +80,65 @@ function AuditLogsTab() {
   );
 }
 
+// function EmergencyRequestsTab() {
+//   const { data, isLoading } = useAdminEmergencyRequests({ page: 1, limit: 30 });
+
+//   if (isLoading) {
+//     return (
+//       <div className="space-y-3">
+//         {[...Array(4)].map((_, i) => (
+//           <Skeleton key={i} className="h-14 w-full" />
+//         ))}
+//       </div>
+//     );
+//   }
+
+//   if (!data?.data.length) {
+//     return (
+//       <EmptyState
+//         icon={Siren}
+//         title="No emergency requests yet"
+//         description="All emergency requests across the platform will appear here."
+//       />
+//     );
+//   }
+
+//   return (
+//     <div className="overflow-x-auto rounded-md border">
+//       <Table>
+//         <TableHeader>
+//           <TableRow>
+//             <TableHead>Patient</TableHead>
+//             <TableHead>Driver</TableHead>
+//             <TableHead>Type</TableHead>
+//             <TableHead>Status</TableHead>
+//             <TableHead>Date</TableHead>
+//           </TableRow>
+//         </TableHeader>
+//         <TableBody>
+//           {data.data.map((req: any) => (
+//             <TableRow key={req.id}>
+//               <TableCell className="font-medium">
+//                 {req.patient?.user?.fullName}
+//               </TableCell>
+//               <TableCell>{req.driver?.user?.fullName ?? "—"}</TableCell>
+//               <TableCell>{req.emergencyType}</TableCell>
+//               <TableCell>
+//                 <StatusBadge status={req.status} />
+//               </TableCell>
+//               <TableCell className="text-sm text-muted-foreground">
+//                 {format(new Date(req.createdAt), "MMM d, yyyy h:mm a")}
+//               </TableCell>
+//             </TableRow>
+//           ))}
+//         </TableBody>
+//       </Table>
+//     </div>
+//   );
+// }
 function EmergencyRequestsTab() {
   const { data, isLoading } = useAdminEmergencyRequests({ page: 1, limit: 30 });
+  const [dispatchTarget, setDispatchTarget] = useState<any>(null);
 
   if (isLoading) {
     return (
@@ -99,36 +161,52 @@ function EmergencyRequestsTab() {
   }
 
   return (
-    <div className="overflow-x-auto rounded-md border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Patient</TableHead>
-            <TableHead>Driver</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Date</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data.data.map((req: any) => (
-            <TableRow key={req.id}>
-              <TableCell className="font-medium">
-                {req.patient?.user?.fullName}
-              </TableCell>
-              <TableCell>{req.driver?.user?.fullName ?? "—"}</TableCell>
-              <TableCell>{req.emergencyType}</TableCell>
-              <TableCell>
-                <StatusBadge status={req.status} />
-              </TableCell>
-              <TableCell className="text-sm text-muted-foreground">
-                {format(new Date(req.createdAt), "MMM d, yyyy h:mm a")}
-              </TableCell>
+    <>
+      <div className="overflow-x-auto rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Patient</TableHead>
+              <TableHead>Driver</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="text-right">Action</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          </TableHeader>
+          <TableBody>
+            {data.data.map((req: any) => (
+              <TableRow key={req.id}>
+                <TableCell className="font-medium">
+                  {req.patient?.user?.fullName}
+                </TableCell>
+                <TableCell>{req.driver?.user?.fullName ?? "—"}</TableCell>
+                <TableCell>{req.emergencyType}</TableCell>
+                <TableCell>
+                  <StatusBadge status={req.status} />
+                </TableCell>
+                <TableCell className="text-sm text-muted-foreground">
+                  {format(new Date(req.createdAt), "MMM d, yyyy h:mm a")}
+                </TableCell>
+                <TableCell className="text-right">
+                  {req.status === "PENDING" && (
+                    <Button size="sm" onClick={() => setDispatchTarget(req)}>
+                      Dispatch
+                    </Button>
+                  )}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
+      <DispatchDialog
+        emergency={dispatchTarget}
+        open={!!dispatchTarget}
+        onOpenChange={(open) => !open && setDispatchTarget(null)}
+      />
+    </>
   );
 }
 

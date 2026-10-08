@@ -45,7 +45,7 @@ export function PublicFooter() {
         </div>
 
         <div className="mt-8 border-t pt-6 text-center text-xs text-muted-foreground">
-          © {new Date().getFullYear()} RESCUEGO. Built for B7A7 Assignment.
+          © {new Date().getFullYear()} RESCUEGO. Built for SAVE LIFE.
         </div>
       </div>
     </footer>

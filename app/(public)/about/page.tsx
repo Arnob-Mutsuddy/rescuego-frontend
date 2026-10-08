@@ -21,15 +21,10 @@ export default function AboutPage() {
         location. Our dispatch engine calculates the real-world distance to
         every available ambulance and assigns the nearest one automatically.
         Drivers accept the request, update their status in real time, and
-        patients can track the entire journey — from pickup to hospital
+        patients can track the entire journey from pickup to hospital
         arrival.
       </p>
-      <p className="mt-4 text-muted-foreground">
-        RESCUEGO was built as a full-stack capstone project, combining a
-        Node.js/Express/PostgreSQL backend with a modern Next.js frontend,
-        demonstrating a complete, production-style emergency dispatch
-        workflow.
-      </p>
+
     </div>
   );
 }

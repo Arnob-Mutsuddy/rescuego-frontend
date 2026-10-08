@@ -5,6 +5,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Siren, MapPin, Clock, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 
+import { HospitalNetworkSection } from "@/components/public/hospital-network-section";
+import { StatsSection } from "@/components/public/stats-section";
+import { MapSection } from "@/components/public/map-section";
+import Image from "next/image";
 export const metadata: Metadata = {
   title: "Home",
   description:
@@ -32,45 +36,183 @@ const features = [
   },
 ];
 
+// export default function HomePage() {
+//   return (
+//     <div>
+//       <section className="mx-auto max-w-6xl px-4 py-20 text-center">
+//         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+//           <Siren className="h-8 w-8 text-primary" />
+//         </div>
+//         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
+//           Emergency Help, <span className="text-primary">Dispatched Fast.</span>
+//         </h1>
+//         <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+//           RESCUEGO connects patients with the nearest available ambulance in
+//           seconds — real GPS tracking, verified drivers, and transparent
+//           pricing, all in one platform.
+//         </p>
+//         <div className="mt-8 flex justify-center gap-3">
+//           {/* <Button size="lg" asChild>
+//             <Link href="/register">Request Help Now</Link>
+//           </Button> */}
+//           <Link href="/register" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-medium whitespace-nowrap text-primary-foreground transition-all hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Request Help Now </Link>
+//           {/* <Button size="lg" variant="outline" asChild>
+//             <Link href="/services">Learn More</Link>
+//           </Button> */}
+//           <Link href="/services" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-4 text-sm font-medium whitespace-nowrap transition-all hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Learn More </Link>
+
+//         </div>
+//       </section>
+
+//       <section className="bg-muted/30 py-16">
+//         <div className="mx-auto max-w-6xl px-4">
+//           <h2 className="text-center text-2xl font-bold">
+//             Why choose RESCUEGO?
+//           </h2>
+//           <div className="mt-10 grid gap-6 md:grid-cols-3">
+//             {features.map((feature) => (
+//               <Card key={feature.title}>
+//                 <CardContent className="pt-6">
+//                   <feature.icon className="h-8 w-8 text-primary" />
+//                   <h3 className="mt-4 font-semibold">{feature.title}</h3>
+//                   <p className="mt-2 text-sm text-muted-foreground">
+//                     {feature.description}
+//                   </p>
+//                 </CardContent>
+//               </Card>
+//             ))}
+//           </div>
+//         </div>
+//       </section>
+//       <StatsSection />
+//       <HospitalNetworkSection />
+//       <MapSection />
+
+//       <section className="mx-auto max-w-6xl px-4 py-16 text-center">
+//         <h2 className="text-2xl font-bold">
+//           Ready to get help when it matters most?
+//         </h2>
+//         <p className="mt-2 text-muted-foreground">
+//           Join RESCUEGO today as a patient or become a driver partner.
+//         </p>
+//         {/* <Button size="lg" className="mt-6" asChild>
+//           <Link href="/register">Create Free Account</Link>
+//         </Button> */}
+//         <Link href="/register" className="mt-6 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-medium whitespace-nowrap text-primary-foreground transition-all hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Create Free Account </Link>
+//       </section>
+//     </div>
+//   );
+// }
 export default function HomePage() {
   return (
     <div>
-      <section className="mx-auto max-w-6xl px-4 py-20 text-center">
-        <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-          <Siren className="h-8 w-8 text-primary" />
-        </div>
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          Emergency Help, <span className="text-primary">Dispatched Fast.</span>
-        </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
-          RESCUEGO connects patients with the nearest available ambulance in
-          seconds — real GPS tracking, verified drivers, and transparent
-          pricing, all in one platform.
-        </p>
-        <div className="mt-8 flex justify-center gap-3">
-          {/* <Button size="lg" asChild>
-            <Link href="/register">Request Help Now</Link>
-          </Button> */}
-          <Link href="/register" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-medium whitespace-nowrap text-primary-foreground transition-all hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Request Help Now </Link>
-          {/* <Button size="lg" variant="outline" asChild>
-            <Link href="/services">Learn More</Link>
-          </Button> */}
-          <Link href="/services" className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg border border-border bg-background px-4 text-sm font-medium whitespace-nowrap transition-all hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Learn More </Link>
 
+      <section className="bg-muted/50 py-8">
+        <div className="container mx-auto px-4">
+          <div className="grid items-center gap-6 md:grid-cols-2">
+
+            <div className="text-center">
+              <h1 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+                Emergency Help,{" "}
+                <span className="text-primary">
+                  Dispatched Fast.
+                </span>
+              </h1>
+
+              <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground md:text-lg">
+                RESCUEGO connects patients with the nearest available ambulance
+                in seconds real GPS tracking, verified drivers, and transparent
+                pricing, all in one platform.
+              </p>
+
+              <div className="mt-6 flex justify-center gap-3">
+                <Link
+                  href="/register"
+                  className="inline-flex h-10 items-center justify-center rounded-lg
+                  bg-primary px-5 text-sm font-medium text-primary-foreground
+                  transition-all hover:bg-primary/80"
+                >
+                  Request Help Now
+                </Link>
+
+                <Link
+                  href="/services"
+                  className="inline-flex h-10 items-center justify-center rounded-lg
+                  border border-border bg-background px-5 text-sm font-medium
+                  transition-all hover:bg-muted"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+
+              <div className="h-32 overflow-hidden rounded-xl bg-white shadow-sm md:h-36">
+
+
+                <Image
+                  src="/animations/hospitalimage.png"
+                  alt="Hospital emergency service"
+                  width={500}
+                  height={500}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+              <div className="h-32 overflow-hidden rounded-xl bg-white shadow-sm md:h-36">
+                <Image
+                  src="/animations/image1.png"
+                  alt="Hospital emergency service"
+                  width={500}
+                  height={500}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+              <div className="h-32 overflow-hidden rounded-xl bg-white shadow-sm md:h-36">
+                <Image
+                  src="/animations/ambulance.png"
+                  alt="Hospital emergency service"
+                  width={500}
+                  height={500}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+              <div className="h-32 overflow-hidden rounded-xl bg-white shadow-sm md:h-36">
+                <Image
+                  src="/animations/call.png"
+                  alt="Hospital emergency service"
+                  width={500}
+                  height={500}
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+            </div>
+
+          </div>
         </div>
       </section>
+
 
       <section className="bg-muted/30 py-16">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="text-center text-2xl font-bold">
             Why choose RESCUEGO?
           </h2>
+
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {features.map((feature) => (
               <Card key={feature.title}>
                 <CardContent className="pt-6">
                   <feature.icon className="h-8 w-8 text-primary" />
-                  <h3 className="mt-4 font-semibold">{feature.title}</h3>
+
+                  <h3 className="mt-4 font-semibold">
+                    {feature.title}
+                  </h3>
+
                   <p className="mt-2 text-sm text-muted-foreground">
                     {feature.description}
                   </p>
@@ -81,18 +223,33 @@ export default function HomePage() {
         </div>
       </section>
 
+
+      <StatsSection />
+
+      <HospitalNetworkSection />
+
+      <MapSection />
+
+
       <section className="mx-auto max-w-6xl px-4 py-16 text-center">
         <h2 className="text-2xl font-bold">
           Ready to get help when it matters most?
         </h2>
+
         <p className="mt-2 text-muted-foreground">
           Join RESCUEGO today as a patient or become a driver partner.
         </p>
-        {/* <Button size="lg" className="mt-6" asChild>
-          <Link href="/register">Create Free Account</Link>
-        </Button> */}
-        <Link href="/register" className="mt-6 inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-medium whitespace-nowrap text-primary-foreground transition-all hover:bg-primary/80 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50" > Create Free Account </Link>
+
+        <Link
+          href="/register"
+          className="mt-6 inline-flex h-10 items-center justify-center
+          rounded-lg bg-primary px-5 text-sm font-medium
+          text-primary-foreground transition-all hover:bg-primary/80"
+        >
+          Create Free Account
+        </Link>
       </section>
+
     </div>
   );
 }
