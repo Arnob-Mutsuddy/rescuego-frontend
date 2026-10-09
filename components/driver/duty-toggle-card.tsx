@@ -47,7 +47,7 @@ export function DutyToggleCard() {
       <CardContent className="space-y-4">
         {!isApproved && (
           <p className="rounded-md bg-yellow-50 p-3 text-sm text-yellow-800">
-            Your account is pending admin approval. You can't go on duty
+            Your account is pending admin approval. You can&apos;t go on duty
             until an admin approves your profile.
           </p>
         )}

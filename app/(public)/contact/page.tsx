@@ -14,7 +14,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-5xl px-4 py-16">
       <h1 className="text-3xl font-bold">Contact Us</h1>
       <p className="mt-2 text-muted-foreground">
-        Have a question? We'd love to hear from you.
+        Have a question? We&apos;d love to hear from you.
       </p>
 
       <div className="mt-10 grid gap-10 md:grid-cols-2">

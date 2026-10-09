@@ -9,7 +9,7 @@ export default function NotFound() {
       <Siren className="h-12 w-12 text-primary" />
       <h1 className="text-4xl font-bold">404</h1>
       <p className="max-w-md text-muted-foreground">
-        The page you're looking for doesn't exist or has been moved.
+        The page you&apos;re looking for doesn&apos;t exist or has been moved.
       </p>
       {/* <Button asChild>
         <Link href="/">Go back home</Link>

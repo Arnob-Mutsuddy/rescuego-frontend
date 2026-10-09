@@ -94,7 +94,7 @@ export function CreateEmergencyDialog() {
         <DialogHeader>
           <DialogTitle>Request Emergency Ambulance</DialogTitle>
           <DialogDescription>
-            We'll use your current location to find the nearest available
+            We&apos;ll use your current location to find the nearest available
             ambulance.
           </DialogDescription>
         </DialogHeader>

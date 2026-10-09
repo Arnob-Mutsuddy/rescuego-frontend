@@ -59,7 +59,7 @@ export default function DriverProfilePage() {
         formState: { errors },
     } = useForm<
         DriverProfileFormInput,
-        any,
+        unknown,
         DriverProfileFormValues
     >({
         resolver: zodResolver(driverProfileSchema),

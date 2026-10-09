@@ -49,7 +49,7 @@ const {
   control,
   reset,
   formState: { errors },
-} = useForm<RegisterAmbulanceFormInput, any, RegisterAmbulanceFormValues>({
+} = useForm<RegisterAmbulanceFormInput, unknown, RegisterAmbulanceFormValues>({
   resolver: zodResolver(registerAmbulanceSchema),
 });
 

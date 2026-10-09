@@ -53,7 +53,7 @@ const {
   formState: { errors },
 } = useForm<
   z.input<typeof hospitalSchema>,
-  any,
+  unknown,
   z.output<typeof hospitalSchema>
 >({
   resolver: zodResolver(hospitalSchema),

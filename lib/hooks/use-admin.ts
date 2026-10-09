@@ -32,7 +32,7 @@ export function useToggleUserStatus() {
       toast.success("User status updated");
       queryClient.invalidateQueries({ queryKey: ["admin-users"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to update user"),
     toast.error(getErrorMessage(error, "Failed to update user"))
   });
@@ -58,7 +58,7 @@ export function useApproveDriver() {
       queryClient.invalidateQueries({ queryKey: ["admin-drivers"] });
       queryClient.invalidateQueries({ queryKey: ["admin-dashboard-stats"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to approve"),
     toast.error(getErrorMessage(error, "Failed to approve"))
   });
@@ -73,7 +73,7 @@ export function useRejectDriver() {
       toast.success("Driver rejected");
       queryClient.invalidateQueries({ queryKey: ["admin-drivers"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to reject"),
       toast.error(getErrorMessage(error, "Failed to reject"))
   });

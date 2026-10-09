@@ -16,7 +16,7 @@ export function useFindNearestForEmergency() {
       emergencyRequestId: string;
       limit?: number;
     }) => dispatchApi.findNearestForEmergency(emergencyRequestId, limit),
-    onError: (error: any) =>
+    onError: (error) =>
       toast.error(
         // error?.response?.data?.message || "Failed to find nearby ambulances"
         getErrorMessage(error, "Failed to find nearby ambulances")
@@ -33,7 +33,7 @@ export function useAssignEmergency() {
       queryClient.invalidateQueries({ queryKey: ["admin-emergency-requests"] });
       queryClient.invalidateQueries({ queryKey: ["admin-dashboard-stats"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to assign"),
     toast.error(getErrorMessage(error, "Failed to assign"))
   });
@@ -50,7 +50,7 @@ export function useAcceptDispatch() {
       toast.success("Dispatch accepted! Head to the patient's location.");
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to accept"),
     toast.error(getErrorMessage(error, "Failed to accept"))
   });
@@ -65,7 +65,7 @@ export function useRejectDispatch() {
       toast.success("Dispatch rejected");
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to reject"),
     toast.error(getErrorMessage(error, "Failed to reject"))
   });
@@ -82,7 +82,7 @@ export function useUpdateTripStatus() {
       );
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(error?.response?.data?.message || "Failed to update status"),
       toast.error(getErrorMessage(error, "Failed to update status"))
   });

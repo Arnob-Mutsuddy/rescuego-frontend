@@ -16,7 +16,7 @@ export function useCreateReview() {
       queryClient.invalidateQueries({ queryKey: ["emergencies"] });
       queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(
       //   error?.response?.data?.message || "Failed to submit review"
       // ),

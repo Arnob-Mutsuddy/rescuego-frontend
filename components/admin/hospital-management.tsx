@@ -87,7 +87,7 @@ export function HospitalManagement() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>Delete Hospital?</AlertDialogTitle>
                             <AlertDialogDescription>
-                              This will soft-delete "{hospital.name}". This
+                              This will soft-delete &quot;{hospital.name}&quot;. This
                               action can be reversed by an administrator later.
                             </AlertDialogDescription>
                           </AlertDialogHeader>

@@ -22,7 +22,7 @@ export function useCreateHospital() {
       toast.success("Hospital created successfully");
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(
       //   error?.response?.data?.message || "Failed to create hospital"
       // ),
@@ -44,7 +44,7 @@ export function useUpdateHospital() {
       toast.success("Hospital updated successfully");
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(
       //   error?.response?.data?.message || "Failed to update hospital"
       // ),
@@ -60,7 +60,7 @@ export function useDeleteHospital() {
       toast.success("Hospital deleted");
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
-    onError: (error: any) =>
+    onError: (error) =>
       // toast.error(
       //   error?.response?.data?.message || "Failed to delete hospital"
       // ),
