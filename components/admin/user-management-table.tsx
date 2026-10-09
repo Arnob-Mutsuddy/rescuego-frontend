@@ -114,7 +114,7 @@ function UserManagementContent() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.data.map((user: any) => (
+                {data.data.map((user) => (
                   <TableRow key={user.id}>
                     <TableCell className="font-medium">{user.fullName}</TableCell>
                     <TableCell>{user.email}</TableCell>

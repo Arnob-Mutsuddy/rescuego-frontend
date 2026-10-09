@@ -19,9 +19,15 @@ import {
 } from "@/components/ui/dialog";
 import { Plus, Pencil, Loader2 } from "lucide-react";
 import { z } from "zod";
+import type { Hospital } from "@/types";
+import type { HospitalPayload } from "@/lib/api/admin";
+
+// interface HospitalFormDialogProps {
+//   hospital?: any; // Edit mode, Else Create mode
+// }
 
 interface HospitalFormDialogProps {
-  hospital?: any; // Edit mode, Else Create mode
+  hospital?: Hospital;
 }
 
 export function HospitalFormDialog({ hospital }: HospitalFormDialogProps) {
@@ -81,22 +87,44 @@ const {
     }
   }, [open, hospital, reset]);
 
-  const onSubmit = (values: HospitalFormValues) => {
-    const payload = Object.fromEntries(
-      Object.entries(values).filter(([, v]) => v !== "")
-    );
+  // const onSubmit = (values: HospitalFormValues) => {
+  //   const payload = Object.fromEntries(
+  //     Object.entries(values).filter(([, v]) => v !== "")
+  //   );
 
-    if (isEdit) {
-      updateHospital.mutate(
-        { id: hospital.id, payload },
-        { onSuccess: () => setOpen(false) }
-      );
-    } else {
-      createHospital.mutate(payload, {
-        onSuccess: () => setOpen(false),
-      });
-    }
+  //   if (isEdit) {
+  //     updateHospital.mutate(
+  //       { id: hospital.id, payload },
+  //       { onSuccess: () => setOpen(false) }
+  //     );
+  //   } else {
+  //     createHospital.mutate(payload, {
+  //       onSuccess: () => setOpen(false),
+  //     });
+  //   }
+  // };
+  const onSubmit = (values: HospitalFormValues) => {
+  const payload: HospitalPayload = {
+    name: values.name,
+    phone: values.phone,
+    address: values.address,
+    latitude: values.latitude,
+    longitude: values.longitude,
+    capacity: values.capacity,
+    email: values.email || undefined,
+    website: values.website || undefined,
+    operatingHours: values.operatingHours || undefined,
   };
+
+  if (hospital) {
+    updateHospital.mutate(
+      { id: hospital.id, payload },
+      { onSuccess: () => setOpen(false) }
+    );
+  } else {
+    createHospital.mutate(payload, { onSuccess: () => setOpen(false) });
+  }
+};
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

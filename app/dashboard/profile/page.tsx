@@ -33,6 +33,7 @@ import {
 import { Controller } from "react-hook-form";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2 } from "lucide-react";
+import type { UpdatePatientProfilePayload } from "@/lib/api/patient";
 
 export default function PatientProfilePage() {
   const { user } = useCurrentUser();
@@ -79,12 +80,23 @@ export default function PatientProfilePage() {
     }
   }, [profile, reset]);
 
+  // const onSubmit = (values: PatientProfileFormValues) => {
+  //   const payload = Object.fromEntries(
+  //     Object.entries(values).filter(([, v]) => v !== "" && v !== undefined)
+  //   );
+  //   updateProfile.mutate(payload);
+  // };
   const onSubmit = (values: PatientProfileFormValues) => {
-    const payload = Object.fromEntries(
-      Object.entries(values).filter(([, v]) => v !== "" && v !== undefined)
-    );
-    updateProfile.mutate(payload);
+  const payload: UpdatePatientProfilePayload = {
+    fullName: values.fullName || undefined,
+    phone: values.phone || undefined,
+    bloodGroup: values.bloodGroup || undefined,
+    medicalHistory: values.medicalHistory || undefined,
+    emergencyContactName: values.emergencyContactName || undefined,
+    emergencyContactPhone: values.emergencyContactPhone || undefined,
   };
+  updateProfile.mutate(payload);
+};
 
   if (isLoading) {
     return (

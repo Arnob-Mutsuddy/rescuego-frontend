@@ -4,6 +4,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { adminApi } from "@/lib/api/admin";
+import { getErrorMessage } from "@/lib/error"
 
 export function useHospitals(params: { page?: number; limit?: number }) {
   return useQuery({
@@ -22,9 +23,10 @@ export function useCreateHospital() {
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
     onError: (error: any) =>
-      toast.error(
-        error?.response?.data?.message || "Failed to create hospital"
-      ),
+      // toast.error(
+      //   error?.response?.data?.message || "Failed to create hospital"
+      // ),
+    toast.error(getErrorMessage(error, "Failed to create hospital"))
   });
 }
 
@@ -43,9 +45,10 @@ export function useUpdateHospital() {
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
     onError: (error: any) =>
-      toast.error(
-        error?.response?.data?.message || "Failed to update hospital"
-      ),
+      // toast.error(
+      //   error?.response?.data?.message || "Failed to update hospital"
+      // ),
+      toast.error(getErrorMessage(error, "Failed to update hospital"))
   });
 }
 
@@ -58,8 +61,9 @@ export function useDeleteHospital() {
       queryClient.invalidateQueries({ queryKey: ["hospitals"] });
     },
     onError: (error: any) =>
-      toast.error(
-        error?.response?.data?.message || "Failed to delete hospital"
-      ),
+      // toast.error(
+      //   error?.response?.data?.message || "Failed to delete hospital"
+      // ),
+      toast.error(getErrorMessage(error, "Failed to delete hospital"))
   });
 }

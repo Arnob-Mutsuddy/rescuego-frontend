@@ -4,7 +4,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { adminApi } from "@/lib/api/admin";
-
+import { getErrorMessage } from "@/lib/error";
 export function useDashboardStats() {
   return useQuery({
     queryKey: ["admin-dashboard-stats"],
@@ -33,7 +33,8 @@ export function useToggleUserStatus() {
       queryClient.invalidateQueries({ queryKey: ["admin-users"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to update user"),
+      // toast.error(error?.response?.data?.message || "Failed to update user"),
+    toast.error(getErrorMessage(error, "Failed to update user"))
   });
 }
 
@@ -58,7 +59,8 @@ export function useApproveDriver() {
       queryClient.invalidateQueries({ queryKey: ["admin-dashboard-stats"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to approve"),
+      // toast.error(error?.response?.data?.message || "Failed to approve"),
+    toast.error(getErrorMessage(error, "Failed to approve"))
   });
 }
 
@@ -72,6 +74,7 @@ export function useRejectDriver() {
       queryClient.invalidateQueries({ queryKey: ["admin-drivers"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to reject"),
+      // toast.error(error?.response?.data?.message || "Failed to reject"),
+      toast.error(getErrorMessage(error, "Failed to reject"))
   });
 }

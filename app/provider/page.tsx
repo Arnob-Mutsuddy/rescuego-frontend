@@ -47,7 +47,7 @@ export default function DriverTasksPage() {
             />
           ) : (
             <div className="space-y-4">
-              {emergencies.map((emergency: any) => (
+              {emergencies.map((emergency) => (
                 <AssignedEmergencyCard
                   key={emergency.id}
                   emergency={emergency}

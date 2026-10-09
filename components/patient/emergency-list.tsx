@@ -102,7 +102,7 @@ function EmergencyListContent() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {emergencies.map((emergency: any) => (
+                {emergencies.map((emergency) => (
                   <TableRow key={emergency.id}>
                     <TableCell className="font-medium">
                       {emergency.emergencyType}
@@ -147,11 +147,18 @@ function EmergencyListContent() {
                                     Pay Now
                                 </Button>
 
-                                {emergency.driver && (
+                                {/* {emergency.driver && (
                                     <ReviewDialog
                                         emergencyRequestId={emergency.id}
                                         driverId={emergency.driverId}
                                         driverName={emergency.driver?.user?.fullName ?? "Driver"}
+                                    />
+                                )} */}
+                                {emergency.status === "COMPLETED" && emergency.driverId && (
+                                    <ReviewDialog
+                                        emergencyRequestId={emergency.id}
+                                        driverId={emergency.driverId}
+                                        driverName={emergency.driver?.user.fullName ?? "Driver"}
                                     />
                                 )}
                             </>

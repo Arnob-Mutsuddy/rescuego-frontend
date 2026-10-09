@@ -12,8 +12,9 @@ import { StatusBadge } from "@/components/shared/status-badge";
 import { useAcceptDispatch, useRejectDispatch } from "@/lib/hooks/use-dispatch";
 import { TripStatusStepper } from "./trip-status-stepper";
 import { MapPin, Phone, User } from "lucide-react";
+import type { EmergencyRequest } from "@/types";
 
-export function AssignedEmergencyCard({ emergency }: { emergency: any }) {
+export function AssignedEmergencyCard({ emergency }: { emergency: EmergencyRequest }) {
   const acceptMutation = useAcceptDispatch();
   const rejectMutation = useRejectDispatch();
 

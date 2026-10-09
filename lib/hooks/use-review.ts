@@ -4,10 +4,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { reviewApi, CreateReviewPayload } from "@/lib/api/review";
+import { getErrorMessage } from "@/lib/error";
 
 export function useCreateReview() {
   const queryClient = useQueryClient();
-  return useMutation({
+  return useMutation({  
     mutationFn: (payload: CreateReviewPayload) =>
       reviewApi.createReview(payload),
     onSuccess: () => {
@@ -16,9 +17,10 @@ export function useCreateReview() {
       queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
     },
     onError: (error: any) =>
-      toast.error(
-        error?.response?.data?.message || "Failed to submit review"
-      ),
+      // toast.error(
+      //   error?.response?.data?.message || "Failed to submit review"
+      // ),
+    toast.error(getErrorMessage(error, "Failed to submit review"))
   });
 }
 

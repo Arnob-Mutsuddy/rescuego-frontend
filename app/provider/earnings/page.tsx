@@ -90,7 +90,7 @@ export default function DriverEarningsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {trips.data.map((trip: any) => (
+                {trips.data.map((trip) => (
                   <TableRow key={trip.id}>
                     <TableCell className="font-medium">
                       {trip.emergencyRequest?.patient?.user?.fullName}

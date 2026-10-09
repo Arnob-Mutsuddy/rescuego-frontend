@@ -24,13 +24,14 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MapPin, Clock, Ambulance, Loader2, SearchX } from "lucide-react";
+import type { EmergencyRequest } from "@/types";
 
 export function DispatchDialog({
   emergency,
   open,
   onOpenChange,
 }: {
-  emergency: any;
+  emergency: EmergencyRequest | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
@@ -77,9 +78,9 @@ const handleOpenChange = (isOpen: boolean) => {
 };
 
 // end
-
+//!selectedDriverId || !selectedHospitalId) return;
   const handleAssign = () => {
-    if (!selectedDriverId || !selectedHospitalId) return;
+    if (!emergency || !selectedDriverId || !selectedHospitalId) return;
     assignEmergency.mutate(
       {
         emergencyRequestId: emergency.id,
@@ -183,7 +184,7 @@ const handleOpenChange = (isOpen: boolean) => {
                   <SelectValue placeholder="Select a hospital" />
                 </SelectTrigger>
                 <SelectContent>
-                  {hospitalsData?.data.map((hospital: any) => (
+                  {hospitalsData?.data.map((hospital) => (
                     <SelectItem key={hospital.id} value={hospital.id}>
                       {hospital.name}
                     </SelectItem>

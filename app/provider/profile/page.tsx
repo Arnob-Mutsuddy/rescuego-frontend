@@ -35,6 +35,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2 } from "lucide-react";
 import { RegisterAmbulanceDialog } from "@/components/driver/register-ambulance-dialog";
 import { AmbulanceList } from "@/components/driver/ambulance-list";
+import type { UpdateDriverProfilePayload } from "@/lib/api/driver";
 
 export default function DriverProfilePage() {
   const { user } = useCurrentUser();
@@ -49,6 +50,8 @@ export default function DriverProfilePage() {
   // } = useForm<DriverProfileFormValues>({
   //   resolver: zodResolver(driverProfileSchema),
   // });
+
+  //any ->undefind
     const {
         register,
         handleSubmit,
@@ -74,15 +77,29 @@ export default function DriverProfilePage() {
     }
   }, [profile, reset]);
 
+  // const onSubmit = (values: DriverProfileFormValues) => {
+  //   const payload: Record<string, unknown> = { ...values };
+  //   if (values.licenseExpiry) {
+  //     payload.licenseExpiry = new Date(values.licenseExpiry).toISOString();
+  //   } else {
+  //     delete payload.licenseExpiry;
+  //   }
+  //   updateProfile.mutate(payload);
+  // };
   const onSubmit = (values: DriverProfileFormValues) => {
-    const payload: Record<string, unknown> = { ...values };
-    if (values.licenseExpiry) {
-      payload.licenseExpiry = new Date(values.licenseExpiry).toISOString();
-    } else {
-      delete payload.licenseExpiry;
-    }
-    updateProfile.mutate(payload);
+  const payload: UpdateDriverProfilePayload = {
+    fullName: values.fullName || undefined,
+    phone: values.phone || undefined,
+    licenseNumber: values.licenseNumber || undefined,
+    licenseExpiry: values.licenseExpiry
+      ? new Date(values.licenseExpiry).toISOString()
+      : undefined,
+    yearsOfExperience: values.yearsOfExperience,
+    certification: values.certification || undefined,
   };
+  updateProfile.mutate(payload);
+};
+
 
   if (isLoading) {
     return (

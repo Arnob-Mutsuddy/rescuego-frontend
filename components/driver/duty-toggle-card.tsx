@@ -31,7 +31,8 @@ export function DutyToggleCard() {
 
   const isAvailable = profile?.isAvailable;
   const isApproved = profile?.isApproved;
-  const hasAmbulance = profile?.ambulances?.length > 0;
+  // const hasAmbulance = profile?.ambulances?.length > 0;
+  const hasAmbulance = (profile?.ambulances.length ?? 0) > 0;
 
   return (
     <Card>

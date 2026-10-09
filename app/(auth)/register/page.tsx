@@ -38,10 +38,19 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
   });
 
+  // const onSubmit = (values: RegisterFormValues) => {
+  //   const { confirmPassword, ...payload } = values;
+  //   registerMutation.mutate(payload);
+  // };
   const onSubmit = (values: RegisterFormValues) => {
-    const { confirmPassword, ...payload } = values;
-    registerMutation.mutate(payload);
-  };
+  registerMutation.mutate({
+    fullName: values.fullName,
+    email: values.email,
+    phone: values.phone,
+    password: values.password,
+    role: values.role,
+  });
+};
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-muted/40 px-4 py-10">

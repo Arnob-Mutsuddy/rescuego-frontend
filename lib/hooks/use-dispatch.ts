@@ -4,7 +4,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { dispatchApi, TripStatus } from "@/lib/api/dispatch";
-
+import { getErrorMessage } from "@/lib/error";
 // ============== ADMIN SIDE ==============
 
 export function useFindNearestForEmergency() {
@@ -18,7 +18,8 @@ export function useFindNearestForEmergency() {
     }) => dispatchApi.findNearestForEmergency(emergencyRequestId, limit),
     onError: (error: any) =>
       toast.error(
-        error?.response?.data?.message || "Failed to find nearby ambulances"
+        // error?.response?.data?.message || "Failed to find nearby ambulances"
+        getErrorMessage(error, "Failed to find nearby ambulances")
       ),
   });
 }
@@ -33,7 +34,8 @@ export function useAssignEmergency() {
       queryClient.invalidateQueries({ queryKey: ["admin-dashboard-stats"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to assign"),
+      // toast.error(error?.response?.data?.message || "Failed to assign"),
+    toast.error(getErrorMessage(error, "Failed to assign"))
   });
 }
 
@@ -49,7 +51,8 @@ export function useAcceptDispatch() {
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to accept"),
+      // toast.error(error?.response?.data?.message || "Failed to accept"),
+    toast.error(getErrorMessage(error, "Failed to accept"))
   });
 }
 
@@ -63,7 +66,8 @@ export function useRejectDispatch() {
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to reject"),
+      // toast.error(error?.response?.data?.message || "Failed to reject"),
+    toast.error(getErrorMessage(error, "Failed to reject"))
   });
 }
 
@@ -79,7 +83,8 @@ export function useUpdateTripStatus() {
       queryClient.invalidateQueries({ queryKey: ["assigned-emergencies"] });
     },
     onError: (error: any) =>
-      toast.error(error?.response?.data?.message || "Failed to update status"),
+      // toast.error(error?.response?.data?.message || "Failed to update status"),
+      toast.error(getErrorMessage(error, "Failed to update status"))
   });
 }
 

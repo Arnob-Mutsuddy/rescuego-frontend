@@ -62,7 +62,7 @@ export function HospitalManagement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.data.map((hospital: any) => (
+              {data.data.map((hospital) => (
                 <TableRow key={hospital.id}>
                   <TableCell className="font-medium">{hospital.name}</TableCell>
                   <TableCell>{hospital.phone}</TableCell>

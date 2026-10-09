@@ -25,7 +25,7 @@ import { format } from "date-fns";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { DispatchDialog } from "@/components/admin/dispatch-dialog";
-
+import type { EmergencyRequest } from "@/types";
 
 function AuditLogsTab() {
   const { data, isLoading } = useAuditLogs({ page: 1, limit: 30 });
@@ -62,7 +62,7 @@ function AuditLogsTab() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.data.map((log: any) => (
+          {data.data.map((log) => (
             <TableRow key={log.id}>
               <TableCell className="font-medium">
                 {log.user?.fullName}
@@ -138,7 +138,7 @@ function AuditLogsTab() {
 // }
 function EmergencyRequestsTab() {
   const { data, isLoading } = useAdminEmergencyRequests({ page: 1, limit: 30 });
-  const [dispatchTarget, setDispatchTarget] = useState<any>(null);
+  const [dispatchTarget, setDispatchTarget] = useState<EmergencyRequest | null>(null);
 
   if (isLoading) {
     return (
@@ -175,7 +175,7 @@ function EmergencyRequestsTab() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.data.map((req: any) => (
+            {data.data.map((req) => (
               <TableRow key={req.id}>
                 <TableCell className="font-medium">
                   {req.patient?.user?.fullName}

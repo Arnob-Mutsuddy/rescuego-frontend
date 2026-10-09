@@ -84,7 +84,7 @@ export function DriverApprovalTable() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {data.data.map((driver: any) => (
+              {data.data.map((driver) => (
                 <TableRow key={driver.id}>
                   <TableCell className="font-medium">
                     {driver.user?.fullName}
