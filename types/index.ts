@@ -195,6 +195,7 @@ export interface Payment {
   status: PaymentStatus;
   description?: string | null;
   createdAt: string;
+  emergencyRequestId: string;
   emergencyRequest?: {
     emergencyType: string;
     severity: string;

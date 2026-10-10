@@ -18,7 +18,7 @@ const protectedRoutes: { prefix: string; role: UserRole }[] = [
 
 const authRoutes = ["/login", "/register"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const token = request.cookies.get("rescuego_token")?.value;

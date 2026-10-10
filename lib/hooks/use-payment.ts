@@ -1,15 +1,19 @@
 // lib/hooks/use-payment.ts
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { paymentApi } from "@/lib/api/payment";
 import { getErrorMessage } from "@/lib/error";
+
+
 
 export function usePaymentHistory(params: { page?: number; limit?: number }) {
   return useQuery({
     queryKey: ["payments", params],
     queryFn: () => paymentApi.getHistory(params),
+    refetchOnWindowFocus: true,
+
   });
 }
 
@@ -22,6 +26,16 @@ export function useCreateCheckout() {
     },
     onError: (error) =>
       toast.error(getErrorMessage(error, "Failed to start payment")),
+  });
+}
+
+//new for pay now -> paid
+export function usePaymentStatus(paymentId: string | undefined) {
+  return useQuery({
+    queryKey: ["payment-status", paymentId],
+    queryFn: () => paymentApi.getStatus(paymentId!),
+    enabled: Boolean(paymentId),
+    refetchOnWindowFocus: true,
   });
 }
 

@@ -25,8 +25,9 @@ import {
 } from "@/components/ui/table";
 import { Siren, ChevronLeft, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
-import { useCreateCheckout } from "@/lib/hooks/use-payment";
+import { useCreateCheckout, usePaymentHistory } from "@/lib/hooks/use-payment";
 import { ReviewDialog } from "./review-dialog";
+
 
 function EmergencyListContent() {
   const { getParam, setParams } = useUrlState();
@@ -47,6 +48,15 @@ function EmergencyListContent() {
 
   const emergencies = data?.data ?? [];
   const pagination = data?.pagination;
+
+//new for pay now ->payed
+  const { data: paymentHistory } = usePaymentHistory({
+  page: 1,
+  limit: 100,
+});
+
+const payments = paymentHistory?.data ?? [];
+//end
 
   return (
     <div className="space-y-4">
@@ -115,55 +125,61 @@ function EmergencyListContent() {
                       {format(new Date(emergency.createdAt), "MMM d, yyyy h:mm a")}
                     </TableCell>
                     <TableCell className="text-right">
-                      <div className="flex justify-end gap-2">
-                        {["PENDING", "ASSIGNED"].includes(emergency.status) && (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled={cancelMutation.isPending}
-                            onClick={() => cancelMutation.mutate(emergency.id)}
-                          >
-                            Cancel
-                          </Button>
-                        )}
-                        {/* {emergency.status === "COMPLETED" && (
-                          <Button
-                            size="sm"
-                            disabled={checkoutMutation.isPending}
-                            onClick={() =>
-                              checkoutMutation.mutate(emergency.id)
-                            }
-                          >
-                            Pay Now
-                          </Button>
-                        )} */}
-                        {emergency.status === "COMPLETED" && (
-                            <>
-                                <Button
-                                    size="sm"
-                                    disabled={checkoutMutation.isPending}
-                                    onClick={() => checkoutMutation.mutate(emergency.id)}
-                                >
-                                    Pay Now
-                                </Button>
+                        <div className="flex justify-end gap-2">
+    {["PENDING", "ASSIGNED"].includes(emergency.status) && (
+      <Button
+        variant="outline"
+        size="sm"
+        disabled={cancelMutation.isPending}
+        onClick={() => cancelMutation.mutate(emergency.id)}
+      >
+        Cancel
+      </Button>
+    )}
 
-                                {/* {emergency.driver && (
-                                    <ReviewDialog
-                                        emergencyRequestId={emergency.id}
-                                        driverId={emergency.driverId}
-                                        driverName={emergency.driver?.user?.fullName ?? "Driver"}
-                                    />
-                                )} */}
-                                {emergency.status === "COMPLETED" && emergency.driverId && (
-                                    <ReviewDialog
-                                        emergencyRequestId={emergency.id}
-                                        driverId={emergency.driverId}
-                                        driverName={emergency.driver?.user.fullName ?? "Driver"}
-                                    />
-                                )}
-                            </>
-                        )}
-                      </div>
+    {emergency.status === "COMPLETED" && (
+      <>
+        {(() => {
+          const payment = payments.find(
+            (p) => p.emergencyRequestId === emergency.id
+          );
+
+          if (payment?.status === "SUCCESS") {
+            return (
+              <Button variant="outline" size="sm" disabled>
+                Paid
+              </Button>
+            );
+          }
+
+          return (
+            <Button
+              size="sm"
+              disabled={checkoutMutation.isPending}
+              onClick={() => checkoutMutation.mutate(emergency.id)}
+            >
+              {checkoutMutation.isPending
+                ? "Processing..."
+                : payment?.status === "FAILED"
+                  ? "Retry Payment"
+                  : "Pay Now"}
+            </Button>
+          );
+        })()}
+
+        {emergency.driverId && (
+          <ReviewDialog
+            emergencyRequestId={emergency.id}
+            driverId={emergency.driverId}
+            driverName={
+              emergency.driver?.user?.fullName ?? "Driver"
+            }
+          />
+        )}
+      </>
+    )}
+  </div>
+
                     </TableCell>
                   </TableRow>
                 ))}
