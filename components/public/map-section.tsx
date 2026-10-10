@@ -102,7 +102,7 @@ export function MapSection() {
 //           height="400"
 //           loading="lazy"
 //           referrerPolicy="no-referrer-when-downgrade"
-//           src="https://www.google.com/maps?q=Chattogram,Bangladesh&output=embed"
+//           src="https://www..com/maps?q=Chattogram,Bangladesh&output=embed"
 //         />
 //       </div>
 //     </section>

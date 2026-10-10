@@ -15,7 +15,7 @@ Built for the SAVE LIFE.
 |---|---|
 | **Live Frontend**|https://rescuego-frontend.vercel.app |
 | **Live Backend** | https://rescuego-backend.vercel.app |
-| **Backend Repo** | https://github.com/Arnob-Mutsuddy/rescuego-backendrescuego-backend |
+| **Backend Repo** | https://github.com/Arnob-Mutsuddy/rescuego-backend |
 | **API Docs (Postman)** | https://documenter.getpostman.com/view/54724313/2sBYB2r7H2 |
 
 
